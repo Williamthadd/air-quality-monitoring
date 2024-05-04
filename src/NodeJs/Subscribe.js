@@ -6,10 +6,6 @@ const mqttPort = 1883;
 const mqttUsername = 'binusian';
 const mqttPassword = 'binusian';
 const mqtt_topic_main = 'AirQualityMonitor';
-const mqtt_topic_temp = "Temperature";
-const mqtt_topic_hum = "Humidity";
-const mqtt_topic_aqi = "AQI";
-
 
 const client = mqtt.connect({
   host: mqttServer,
@@ -18,20 +14,37 @@ const client = mqtt.connect({
   password: mqttPassword
 });
 
-
 client.on('connect', () => {
   client.subscribe(mqtt_topic_main);
-  client.subscribe(mqtt_topic_temp);
-  client.subscribe(mqtt_topic_hum);
-  client.subscribe(mqtt_topic_aqi);
 });
-
 
 client.on('message', (topic, message) => {
   console.log(message.toString());
   
+  const currentTime = new Date().toLocaleString();
+
+  const components = message.toString().split(", ");
+  let temperature, humidity, airQualityIndex;
+  components.forEach(component => {
+    if (component.startsWith("Temperature")) {
+      temperature = component.split(": ")[1];
+    } else if (component.startsWith("Humidity")) {
+      humidity = component.split(": ")[1];
+    } else if (component.startsWith("AQI")) {
+      airQualityIndex = component.split(": ")[1];
+    }
+  });
+
+  const dataObject = {
+    time: currentTime,
+    message: message.toString(),
+    Temperature: temperature,
+    Humidity: humidity,
+    AQI: airQualityIndex
+  };
+  
   const dataRef = db.ref('AirQualityMonitor');
-  dataRef.push(message.toString());
+  dataRef.push(dataObject);
 });
 
 client.on('error', (error) => {
