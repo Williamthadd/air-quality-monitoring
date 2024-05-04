@@ -3,8 +3,8 @@ const mqtt = require('mqtt');
 
 const mqttServer = 'broker.mqtt.cool';
 const mqttPort = 1883;
-const mqttUsername = 'username';
-const mqttPassword = 'password';
+const mqttUsername = 'binusian';
+const mqttPassword = 'binusian';
 const mqtt_topic_main = 'AirQualityMonitor';
 const mqtt_topic_temp = "Temperature";
 const mqtt_topic_hum = "Humidity";
