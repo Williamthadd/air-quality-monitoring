@@ -1,10 +1,15 @@
+const db = require('../Firebase/FirebaseConfig');
 const mqtt = require('mqtt');
 
 const mqttServer = 'broker.mqtt.cool';
 const mqttPort = 1883;
-const mqttUsername = 'binusian';
-const mqttPassword = 'binusian';
-const mqttTopic = 'AirQualityMonitor';
+const mqttUsername = 'username';
+const mqttPassword = 'password';
+const mqtt_topic_main = 'AirQualityMonitor';
+const mqtt_topic_temp = "Temperature";
+const mqtt_topic_hum = "Humidity";
+const mqtt_topic_aqi = "AQI";
+
 
 const client = mqtt.connect({
   host: mqttServer,
@@ -13,13 +18,20 @@ const client = mqtt.connect({
   password: mqttPassword
 });
 
+
 client.on('connect', () => {
-  console.log('Connected to MQTT Broker : ' + mqttTopic);
-  client.subscribe(mqttTopic);
+  client.subscribe(mqtt_topic_main);
+  client.subscribe(mqtt_topic_temp);
+  client.subscribe(mqtt_topic_hum);
+  client.subscribe(mqtt_topic_aqi);
 });
 
+
 client.on('message', (topic, message) => {
-  console.log('Received message:', message.toString());
+  console.log(message.toString());
+  
+  const dataRef = db.ref('AirQualityMonitor');
+  dataRef.push(message.toString());
 });
 
 client.on('error', (error) => {
