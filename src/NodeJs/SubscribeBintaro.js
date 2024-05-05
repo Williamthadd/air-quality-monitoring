@@ -1,12 +1,15 @@
-const db = require('../Firebase/FirebaseConfig');
+// import data dari library dan file di tempat lain
+const db = require('../Firebase/FirebaseConfigNode');
 const mqtt = require('mqtt');
 
+// delcare data mqtt
 const mqttServer = 'broker.mqtt.cool';
 const mqttPort = 1883;
 const mqttUsername = 'binusian';
 const mqttPassword = 'binusian';
-const mqtt_topic_main = 'AirQualityMonitor';
+const mqtt_topic_main = 'AirQualityMonitorBintaro';
 
+//koneksi ke mqtt
 const client = mqtt.connect({
   host: mqttServer,
   port: mqttPort,
@@ -14,15 +17,18 @@ const client = mqtt.connect({
   password: mqttPassword
 });
 
+//menetapkan event handling koneksi ke mqtt
 client.on('connect', () => {
   client.subscribe(mqtt_topic_main);
 });
 
+//mengambil output dari message mqtt
 client.on('message', (topic, message) => {
   console.log(message.toString());
   
   const currentTime = new Date().toLocaleString();
 
+  //mengambil data yg lebih spesifik dengan memecah isi message
   const components = message.toString().split(", ");
   let temperature, humidity, airQualityIndex;
   components.forEach(component => {
@@ -35,6 +41,7 @@ client.on('message', (topic, message) => {
     }
   });
 
+  //mengelompokan isi data agar structure nya sesuai yang akan diInput ke database
   const dataObject = {
     time: currentTime,
     message: message.toString(),
@@ -43,10 +50,12 @@ client.on('message', (topic, message) => {
     AQI: airQualityIndex
   };
   
-  const dataRef = db.ref('AirQualityMonitor');
+  // masukin data ke firebase
+  const dataRef = db.ref('AirQualityMonitorBintaro');
   dataRef.push(dataObject);
 });
 
+//output jika ada error
 client.on('error', (error) => {
   console.error('Error:', error);
 });

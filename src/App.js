@@ -1,10 +1,47 @@
 import React, { useState, useEffect } from 'react';
+import "./App.css"
+import Home from "./Page/Home.js"
+import Bintaro from "./Page/Bintaro.js"
+import Ciledug from "./Page/Ciledug.js"
+import Graha from "./Page/Graha.js"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div>
-      <h1>Data Monitoring Kualitas Udara</h1>
-      {/* taruh kode untuk menampilkan output terbaru dari mqtt melalui firebase */}
+      <Router>
+        <Routes>
+
+          <Route 
+            path="/"
+            element={
+              <Home/>
+            }
+          />
+
+          <Route 
+            path="/Bintaro"
+            element={
+              <Bintaro/>
+            }
+          />
+
+          <Route 
+            path="/Ciledug"
+            element={
+              <Ciledug/>
+            }
+          />
+
+          <Route 
+            path="/Graha"
+            element={
+              <Graha/>
+            }
+          />
+
+        </Routes>
+      </Router>
     </div>
   );
 }
