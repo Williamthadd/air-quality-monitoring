@@ -30,28 +30,28 @@ client.on('message', (topic, message) => {
 
   //mengambil data yg lebih spesifik dengan memecah isi message
   const components = message.toString().split(", ");
-  let temperature, humidity, airQualityIndex;
+  let temperature, humidity, ppm;
   components.forEach(component => {
     if (component.startsWith("Temperature")) {
       temperature = component.split(": ")[1];
     } else if (component.startsWith("Humidity")) {
       humidity = component.split(": ")[1];
-    } else if (component.startsWith("AQI")) {
-      airQualityIndex = component.split(": ")[1];
+    } else if (component.startsWith("PPM")) {
+      ppm = component.split(": ")[1];
     }
   });
 
   //mengelompokan isi data agar structure nya sesuai yang akan diInput ke database
   const dataObject = {
-    time: currentTime,
-    message: message.toString(),
+    Time: currentTime,
+    Message: message.toString(),
     Temperature: temperature,
     Humidity: humidity,
-    AQI: airQualityIndex
+    PPM: ppm
   };
   
   // masukin data ke firebase
-  const dataRef = db.ref('AirQualityMonitorCiledug');
+  const dataRef = db.ref('AirQualityMonitorBintaro');
   dataRef.push(dataObject);
 });
 

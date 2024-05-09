@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import "./App.css"
+import React from 'react';
+import "../src/Style/App.css"
 import Home from "./Page/Home.js"
 import Bintaro from "./Page/Bintaro.js"
 import Ciledug from "./Page/Ciledug.js"

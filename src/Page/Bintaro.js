@@ -37,11 +37,11 @@ function Bintaro() {
         <h1>Bintaro</h1>
         {data && (
             <div>
-            <p>Time: {data.time}</p>
+            <p>Time: {data.Time}</p>
             <p>Temperature: {data.Temperature}</p>
             <p>Humidity: {data.Humidity}</p>
-            <p>AQI: {data.AQI}</p>
-            <p>Message: {data.message}</p>
+            <p>PPM CO2: {data.PPM}</p>
+            <p>Message: {data.Message}</p>
             </div>
         )}
         <Link to="/">
