@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Graha() {
+function BuildingA() {
   return (
     <div>
-      <h1>Graha</h1>
+      <h1>Gedung A</h1>
 
       <Link to="/">
         <h5>Back to Home</h5>
@@ -13,4 +13,4 @@ function Graha() {
   );
 }
 
-export default Graha;
+export default BuildingA;

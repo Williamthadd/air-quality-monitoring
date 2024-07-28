@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Ciledug() {
+function BuildingB() {
   return (
     <div>
-      <h1>Ciledug</h1>
+      <h1>Gedung B</h1>
 
       <Link to="/">
         <h5>Back to Home</h5>
@@ -13,4 +13,4 @@ function Ciledug() {
   );
 }
 
-export default Ciledug;
+export default BuildingB;

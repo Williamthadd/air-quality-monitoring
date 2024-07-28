@@ -1,9 +1,9 @@
 import React from 'react';
 import "../src/Style/App.css"
 import Home from "./Page/Home.js"
-import Bintaro from "./Page/Bintaro.js"
-import Ciledug from "./Page/Ciledug.js"
-import Graha from "./Page/Graha.js"
+import BuildingA from "./Page/BuildingA.js"
+import BuildingB from "./Page/BuildingB.js"
+import BuildingC from "./Page/BuildingC.js"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -20,23 +20,23 @@ function App() {
           />
 
           <Route 
-            path="/Bintaro"
+            path="/BuildingA"
             element={
-              <Bintaro/>
+              <BuildingA/>
             }
           />
 
           <Route 
-            path="/Ciledug"
+            path="/BuildingB"
             element={
-              <Ciledug/>
+              <BuildingB/>
             }
           />
 
           <Route 
-            path="/Graha"
+            path="/BuildingC"
             element={
-              <Graha/>
+              <BuildingC/>
             }
           />
 

@@ -7,7 +7,7 @@ const mqttServer = 'broker.mqtt.cool';
 const mqttPort = 1883;
 const mqttUsername = 'binusian';
 const mqttPassword = 'binusian';
-const mqtt_topic_main = 'AirQualityMonitorCiledug';
+const mqtt_topic_main = 'AirQualityMonitorB';
 
 //koneksi ke mqtt
 const client = mqtt.connect({
@@ -51,7 +51,7 @@ client.on('message', (topic, message) => {
   };
   
   // masukin data ke firebase
-  const dataRef = db.ref('AirQualityMonitorBintaro');
+  const dataRef = db.ref('AirQualityMonitorB');
   dataRef.push(dataObject);
 });
 

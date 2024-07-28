@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { db, ref, onValue } from '../Firebase/FirebaseConfigReact';
 
-function Bintaro() {
+function BuildingC() {
     //declare data
     const [data, setData] = useState(null);
 
@@ -11,7 +11,7 @@ function Bintaro() {
     useEffect(() => {
         const fetchData = () => {
         //ambil data AirQualityMonitor dari realtime database AirQualityMonitorBintaro di firebase
-        const dataRef = ref(db, 'AirQualityMonitorBintaro');
+        const dataRef = ref(db, 'AirQualityMonitorC');
         onValue(dataRef, (snapshot) => {
             const newData = snapshot.val();
             // Mendapatkan kunci terbaru dari objek data
@@ -34,7 +34,7 @@ function Bintaro() {
     //output interface
     return (
         <div>
-        <h1>Bintaro</h1>
+        <h1>Gedung C</h1>
         {data && (
             <div>
             <p>Time: {data.Time}</p>
@@ -51,4 +51,4 @@ function Bintaro() {
     );
 }
 
-export default Bintaro;
+export default BuildingC;

@@ -6,16 +6,16 @@ function Home() {
     <div>
       <h1>Home</h1>
       
-      <Link to="/Bintaro">
-        <h5>Bintaro</h5>
+      <Link to="/BuildingA">
+        <h5>Gedung A</h5>
       </Link>
 
-      <Link to="/Ciledug">
-        <h5>Ciledug</h5>
+      <Link to="/BuildingB">
+        <h5>Gedung B</h5>
       </Link>
 
-      <Link to="/Graha">
-        <h5>Graha</h5>
+      <Link to="/BuildingC">
+        <h5>Gedung C</h5>
       </Link>
     </div>
   );
