@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { db, ref, onValue } from '../Firebase/FirebaseConfigReact';
+import Heading from './component/Heading.js';
+import Footers from './component/Footerbawah.js'
+import Footerbawah from './component/Footerbawah.js';
 
 function BuildingC() {
     //declare data
@@ -31,22 +34,144 @@ function BuildingC() {
         };
     }, []);
 
-    //output interface
-    return (
-        <div>
-        <h1>Gedung C</h1>
-        {data && (
-            <div>
-            <p>Time: {data.Time}</p>
-            <p>Temperature: {data.Temperature}</p>
-            <p>Humidity: {data.Humidity}</p>
-            <p>PPM CO2: {data.PPM}</p>
-            <p>Message: {data.Message}</p>
+
+    function PerbandinganTemperature({ data }){
+        if(data > 30){
+            return (
+             <div className='Card4'>
+                 <h1>Panas</h1>
+             </div>
+            );
+         }
+         else if(data > 20){
+             return (
+                 <div className='Card5'>
+                     <h1>Medium</h1>
+                 </div>
+                );
+         }else{
+             return (
+                 <div className='Card6'>
+                     <h1>Low</h1>
+                 </div>
+                );
+         }
+    }
+
+    function PerbandinganPPM({ data }){
+        if(data > 30){
+            return (
+             <div className='Card4'>
+                 <h1>High</h1>
+             </div>
+            );
+         }
+         else if(data > 20){
+             return (
+                 <div className='Card5'>
+                     <h1>Medium</h1>
+                 </div>
+                );
+         }else{
+             return (
+                 <div className='Card6'>
+                     <h1>Low</h1>
+                 </div>
+                );
+         }
+    }
+
+    function PerbandinganHumidity({ data }){
+        if(data > 30){
+           return (
+            <div className='Card4'>
+                <h1>High</h1>
             </div>
-        )}
-        <Link to="/">
-            <h5>Back to Home</h5>
-        </Link>
+           );
+        }
+        else if(data > 20){
+            return (
+                <div className='Card5'>
+                    <h1>Medium</h1>
+                </div>
+               );
+        }else{
+            return (
+                <div className='Card6'>
+                    <h1>Low</h1>
+                </div>
+               );
+        }
+    }
+
+
+
+    return (
+    <div class="App">
+        
+        <Heading />
+        <br/><br/><br/>
+        <br/><br/><br/>     
+          
+{data && (
+
+        <div>
+
+            <div className="middle-wrapper">
+                <div className="Card">
+                    <div className="Card2">
+                        <h1>PPM CO2</h1>
+                    </div>
+                    
+                    <div className="Card3-Wrapper">
+                        <div className="Card3">
+                            <h1>{data.PPM}</h1>
+                        </div>
+                            
+                        <PerbandinganPPM data={data.PPM}/>
+                    </div>
+          
+                </div>
+                
+                <div className="Card">
+                    <div className="Card2">
+                        <h1>Temperature {"(C)"} </h1>
+                    </div>
+                    
+                    <div className="Card3-Wrapper">
+                        <div className="Card3">
+                            <h1>{data.Temperature}</h1>
+                        </div>
+
+                        <PerbandinganTemperature data={data.Temperature}/> 
+                    </div>
+          
+                </div>
+
+                <div className="Card">
+                    <div className="Card2">
+                        <h1 >Humidity {"(%)"}</h1>
+                    </div>
+                    
+                    <div className="Card3-Wrapper">
+                        <div className="Card3">
+                            <h1>{data.Humidity}</h1>
+                        </div>
+
+                        <PerbandinganHumidity data={data.Humidity}/>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    )}
+
+            <Link to="/">
+                <h5>Back to Home</h5>
+            </Link>
+
+            <Footerbawah/>
         </div>
     );
 }
