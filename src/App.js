@@ -15,13 +15,6 @@ function App() {
           <Route 
             path="/"
             element={
-              <Home/>
-            }
-          />
-
-          <Route 
-            path="/BuildingA"
-            element={
               <BuildingA/>
             }
           />
