@@ -83,6 +83,23 @@
 
 
 /* Bagian Tengah */
+.DropDown{
+  margin-left: 70px;
+}
+
+.DropDown h1{
+  color: white;
+  margin-bottom: 30px;
+}
+
+.link{
+  text-decoration: none;
+}
+
+.libutton{
+  background-color: white;
+}
+
 .middle-wrapper{
   width: 100%;
   height: 400px;

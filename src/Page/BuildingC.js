@@ -110,12 +110,25 @@ function BuildingC() {
     <div class="App">
         
         <Heading />
-        <br/><br/><br/>
-        <br/><br/><br/>     
+        <br/>    
           
 {data && (
 
         <div>
+
+        <div className="DropDown">
+            <h1>Binus Alam Sutera</h1>
+            
+            <div class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        Gedung C      
+                    </button>
+                    <ul class="dropdown-menu">
+                        <Link to="/" className='Link'><li className='libutton'><button class="dropdown-item" type="button">Gedung A</button></li></Link>
+                        <Link to="/BuildingB"><li className='libutton'><button class="dropdown-item" type="button">Gedung B</button></li></Link>
+                    </ul>
+            </div>
+        </div>
 
             <div className="middle-wrapper">
                 <div className="Card">
@@ -166,11 +179,6 @@ function BuildingC() {
 
         </div>
     )}
-
-            <Link to="/">
-                <h5>Back to Home</h5>
-            </Link>
-
             <Footerbawah/>
         </div>
     );
