@@ -36,17 +36,17 @@ function BuildingC() {
 
 
     function PerbandinganTemperature({ data }){
-        if(data > 30){
+        if(data > 36){
             return (
              <div className='Card4'>
-                 <h1>Panas</h1>
+                 <h1>Hot</h1>
              </div>
             );
          }
-         else if(data > 20){
+         else if(data > 25){
              return (
                  <div className='Card5'>
-                     <h1>Medium</h1>
+                     <h1>Decent</h1>
                  </div>
                 );
          }else{
@@ -59,14 +59,14 @@ function BuildingC() {
     }
 
     function PerbandinganPPM({ data }){
-        if(data > 30){
+        if(data > 100){
             return (
              <div className='Card4'>
                  <h1>High</h1>
              </div>
             );
          }
-         else if(data > 20){
+         else if(data > 50 && data < 100){
              return (
                  <div className='Card5'>
                      <h1>Medium</h1>
@@ -75,30 +75,30 @@ function BuildingC() {
          }else{
              return (
                  <div className='Card6'>
-                     <h1>Low</h1>
+                     <h1>Safe</h1>
                  </div>
                 );
          }
     }
 
     function PerbandinganHumidity({ data }){
-        if(data > 30){
+        if(data > 60){
            return (
             <div className='Card4'>
-                <h1>High</h1>
+                <h1>Dangerous</h1>
             </div>
            );
         }
-        else if(data > 20){
+        else if(data > 29 && data < 60){
             return (
                 <div className='Card5'>
-                    <h1>Medium</h1>
+                    <h1>Safe</h1>
                 </div>
                );
         }else{
             return (
                 <div className='Card6'>
-                    <h1>Low</h1>
+                    <h1>Dry</h1>
                 </div>
                );
         }
