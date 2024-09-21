@@ -3,7 +3,7 @@ const db = require('../Firebase/FirebaseConfigNode');
 const mqtt = require('mqtt');
 
 // delcare data mqtt
-const mqttServer = 'broker.mqtt.cool';
+const mqttServer = 'broker.hivemq.com';
 const mqttPort = 1883;
 const mqttUsername = 'binusian';
 const mqttPassword = 'binusian';
