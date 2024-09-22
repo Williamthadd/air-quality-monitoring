@@ -1,6 +1,5 @@
 import React from 'react';
 import "../src/Style/App.css"
-import Home from "./Page/Home.js"
 import BuildingA from "./Page/BuildingA.js"
 import BuildingB from "./Page/BuildingB.js"
 import BuildingC from "./Page/BuildingC.js"
