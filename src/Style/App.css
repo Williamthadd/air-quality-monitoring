@@ -204,6 +204,22 @@
   margin-top: 47px;
 }
 
+.Card7{
+  width: 50%;
+  height: 150px;
+  background-color: rgb(52, 152, 209);
+  border-bottom-right-radius: 15px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+}
+
+.Card7 h1{
+  background-color: rgb(52, 152, 209);
+  margin-top: 47px;
+}
+
+
 
 /* Bagian Bawah */
 
