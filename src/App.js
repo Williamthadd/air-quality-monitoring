@@ -4,7 +4,7 @@ import BuildingA from "./Page/BuildingA.js"
 import BuildingB from "./Page/BuildingB.js"
 import BuildingC from "./Page/BuildingC.js"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// last updated 11/03/2024
+// last updated 11/03/2024 19:21
 function App() {
   return (
     <div>
