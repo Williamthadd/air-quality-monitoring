@@ -285,10 +285,11 @@
 } 
 /* responsive width 590 edited by Axel Nathaniel Budiraharjo : End */
 
-/* Buat hape samsung gajelas anjer jelek banget cok cok */
-@media screen and (max-width: 420px){  
+
+/* responsive width 440 edited by Axel Nathaniel Budiraharjo : Start */
+@media screen and (max-width: 440px){  
   .Card{
-    margin-left: 4%;
+    margin-left: 6%;
     width: 380px;
   }
 
@@ -306,4 +307,27 @@
     font-size: 25px;
   }
 } 
-/* Buat hape samsung gajelas anjer jelek banget cok cok */
+/* responsive width 440 edited by Axel Nathaniel Budiraharjo : End */
+
+/* responsive width 420 edited by Axel Nathaniel Budiraharjo : Start */
+@media screen and (max-width: 420px){  
+  .Card{
+    margin-left: 4.5%;
+    width: 380px;
+  }
+
+  .Time{
+    color: white;
+    margin-left: 10px;
+    font-size: 15px;
+  }
+
+  .DropDown{
+    margin-left: 20px;
+  }
+
+  .animasi-text{
+    font-size: 25px;
+  }
+} 
+/* responsive width 420 edited by Axel Nathaniel Budiraharjo : End */
