@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db, ref, onValue } from "../Firebase/FirebaseConfigReact";
 import Heading from "./component/Heading.js";
-import Footerbawah from "./component/Footerbawah.js";
+import Footer from "./component/Footer.js";
 
 function BuildingA() {
   //declare data
@@ -33,7 +33,7 @@ function BuildingA() {
     };
   }, []);
 
-  function PerbandinganTemperature({ data }) {
+  function TemperatureConverter({ data }) {
     if (data > 27) {
       return (
         <div className="Card4">
@@ -55,7 +55,7 @@ function BuildingA() {
     }
   }
 
-  function PerbandinganPPM({ data }) {
+  function PPMConveter({ data }) {
     if (data > 100) {
       return (
         <div className="Card4">
@@ -77,7 +77,7 @@ function BuildingA() {
     }
   }
 
-  function PerbandinganHumidity({ data }) {
+  function HumidityConverter({ data }) {
     if (data > 70) {
       return (
         <div className="Card4">
@@ -149,7 +149,7 @@ function BuildingA() {
                   <h1>{data.PPM}</h1>
                 </div>
 
-                <PerbandinganPPM data={data.PPM} />
+                <PPMConveter data={data.PPM} />
               </div>
             </div>
 
@@ -163,7 +163,7 @@ function BuildingA() {
                   <h1>{data.Temperature}</h1>
                 </div>
 
-                <PerbandinganTemperature data={data.Temperature} />
+                <TemperatureConverter data={data.Temperature} />
               </div>
             </div>
 
@@ -177,7 +177,7 @@ function BuildingA() {
                   <h1>{data.Humidity}</h1>
                 </div>
 
-                <PerbandinganHumidity data={data.Humidity} />
+                <HumidityConverter data={data.Humidity} />
               </div>
             </div>
           </div>
@@ -186,7 +186,7 @@ function BuildingA() {
           </p>
         </div>
       )}
-      <Footerbawah />
+      <Footer />
     </div>
   );
 }
