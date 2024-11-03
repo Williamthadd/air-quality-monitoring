@@ -362,7 +362,7 @@
 } 
 /* responsive width 380 edited by Axel Nathaniel Budiraharjo : End */
 
-/* responsive width 375 edited by Axel Nathaniel Budiraharjo : Start */
+/* responsive width 375 for samsung device edited by Axel Nathaniel Budiraharjo : Start */
 @media screen and (max-width: 375px){  
   .Card{
     margin-left: 1%;
@@ -383,4 +383,4 @@
     font-size: 20px;
   }
 } 
-/* responsive width 375 edited by Axel Nathaniel Budiraharjo : End */
+/* responsive width 375 samsung device edited by Axel Nathaniel Budiraharjo : End */
