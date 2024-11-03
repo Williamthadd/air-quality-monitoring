@@ -117,20 +117,20 @@ function BuildingA() {
                 data-bs-display="static"
                 aria-expanded="false"
               >
-                Gedung A
+                Building A
               </button>
               <ul class="dropdown-menu">
                 <Link to="/BuildingB" className="Link">
                   <li className="libutton">
                     <button class="dropdown-item" type="button">
-                      Gedung B
+                      Building B
                     </button>
                   </li>
                 </Link>
                 <Link to="/BuildingC">
                   <li className="libutton">
                     <button class="dropdown-item" type="button">
-                      Gedung C
+                      Building C
                     </button>
                   </li>
                 </Link>
