@@ -331,3 +331,72 @@
   }
 } 
 /* responsive width 420 edited by Axel Nathaniel Budiraharjo : End */
+
+/* responsive width 400 edited by Axel Nathaniel Budiraharjo : Start */
+@media screen and (max-width: 400px){  
+  .Card{
+    margin-left: 2%;
+    width: 380px;
+  }
+
+  .Time{
+    color: white;
+    margin-left: 10px;
+    font-size: 15px;
+  }
+
+  .DropDown{
+    margin-left: 20px;
+  }
+
+  .animasi-text{
+    font-size: 20px;
+  }
+} 
+/* responsive width 400 edited by Axel Nathaniel Budiraharjo : End */
+
+/* responsive width 380 edited by Axel Nathaniel Budiraharjo : Start */
+@media screen and (max-width: 380px){  
+  .Card{
+    margin-left: 2%;
+    width: 365px;
+  }
+
+  .Time{
+    color: white;
+    margin-left: 10px;
+    font-size: 15px;
+  }
+
+  .DropDown{
+    margin-left: 20px;
+  }
+
+  .animasi-text{
+    font-size: 20px;
+  }
+} 
+/* responsive width 380 edited by Axel Nathaniel Budiraharjo : End */
+
+/* responsive width 375 edited by Axel Nathaniel Budiraharjo : Start */
+@media screen and (max-width: 375px){  
+  .Card{
+    margin-left: 1%;
+    width: 365px;
+  }
+
+  .Time{
+    color: white;
+    margin-left: 10px;
+    font-size: 15px;
+  }
+
+  .DropDown{
+    margin-left: 20px;
+  }
+
+  .animasi-text{
+    font-size: 20px;
+  }
+} 
+/* responsive width 375 edited by Axel Nathaniel Budiraharjo : End */
