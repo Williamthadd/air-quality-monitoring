@@ -81,8 +81,6 @@
   }
 }
 
-
-/* Bagian Tengah */
 .DropDown{
   margin-left: 70px;
 }
@@ -225,8 +223,6 @@
   font-size: 20px;
 }
 
-/* Bagian Bawah */
-
 .Footer-Wrap{
   position: sticky;
   background-color: #1C3031;
@@ -243,7 +239,6 @@
   font-size: 20px;
 }
 
-/* responsive 1050 edited by Axel Nathaniel Budiraharjo : Start */
 @media screen and (max-width: 1050px){
 .middle-wrapper{
     width: 100%;
@@ -256,38 +251,29 @@
     width: 500px;
   }
 }
-/* responsive width 1050 edited by Axel Nathaniel Budiraharjo : End */
 
-/* responsive width  900 edited by Axel Nathaniel Budiraharjo : Start */
 @media screen and (max-width: 900px){  
     .Card{
       margin-left: 20%;
       width: 500px;
     }
   } 
-/* responsive width 900 edited by Axel Nathaniel Budiraharjo : End */
 
-/* responsive width 730 edited by Axel Nathaniel Budiraharjo : Start*/
 @media screen and (max-width: 720px){  
   .Card{
     margin-left: 15%;
     width: 500px;
   }
 } 
-/* responsive width 730 edited by Axel Nathaniel Budiraharjo : End */
 
-/* responsive width 590 edited by Axel Nathaniel Budiraharjo : Start */
 @media screen and (max-width: 590px){  
   .Card{
     margin-left: 4%;
     width: 500px;
   }
 } 
-/* responsive width 590 edited by Axel Nathaniel Budiraharjo : End */
 
-
-/* responsive width 440 edited by Axel Nathaniel Budiraharjo : Start */
-@media screen and (max-width: 440px){  
+@media screen and (max-width: 530px){  
   .Card{
     margin-left: 6%;
     width: 380px;
@@ -307,10 +293,8 @@
     font-size: 25px;
   }
 } 
-/* responsive width 440 edited by Axel Nathaniel Budiraharjo : End */
 
-/* responsive width 420 edited by Axel Nathaniel Budiraharjo : Start */
-@media screen and (max-width: 420px){  
+@media screen and (max-width: 450px){  
   .Card{
     margin-left: 4.5%;
     width: 380px;
