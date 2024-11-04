@@ -249,6 +249,10 @@
     margin-left: 25%;
     width: 500px;
   }
+
+  .animasi-text{
+    min-width: 180px;
+  }
 }
 
 @media screen and (max-width: 900px){  
