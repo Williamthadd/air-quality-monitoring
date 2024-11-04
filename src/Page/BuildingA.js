@@ -33,14 +33,14 @@ function BuildingA() {
     };
   }, []);
 
-  function TemperatureConverter({ data }) {
-    if (data > 27) {
+  function TemperatureConverter({ dataTemperature }) {
+    if (dataTemperature > 27) {
       return (
         <div className="Card4">
           <h1>Hot</h1>
         </div>
       );
-    } else if (data > 23) {
+    } else if (dataTemperature > 23) {
       return (
         <div className="Card6">
           <h1>Decent</h1>
@@ -55,14 +55,14 @@ function BuildingA() {
     }
   }
 
-  function PPMConveter({ data }) {
-    if (data > 100) {
+  function PPMConveter({ dataPPM }) {
+    if (dataPPM > 100) {
       return (
         <div className="Card4">
           <h1>High</h1>
         </div>
       );
-    } else if (data > 50 && data < 100) {
+    } else if (dataPPM >= 50 && dataPPM <= 100) {
       return (
         <div className="Card5">
           <h1>Medium</h1>
@@ -77,14 +77,14 @@ function BuildingA() {
     }
   }
 
-  function HumidityConverter({ data }) {
-    if (data > 70) {
+  function HumidityConverter({ dataHumidity }) {
+    if (dataHumidity > 70) {
       return (
         <div className="Card4">
           <h1>Dangerous</h1>
         </div>
       );
-    } else if (data > 23) {
+    } else if (dataHumidity > 23) {
       return (
         <div className="Card6">
           <h1>Safe</h1>
@@ -149,7 +149,7 @@ function BuildingA() {
                   <h1>{data.PPM}</h1>
                 </div>
 
-                <PPMConveter data={data.PPM} />
+                <PPMConveter dataPPM={data.PPM} />
               </div>
             </div>
 
@@ -163,7 +163,7 @@ function BuildingA() {
                   <h1>{data.Temperature}</h1>
                 </div>
 
-                <TemperatureConverter data={data.Temperature} />
+                <TemperatureConverter dataTemperature={data.Temperature} />
               </div>
             </div>
 
@@ -177,7 +177,7 @@ function BuildingA() {
                   <h1>{data.Humidity}</h1>
                 </div>
 
-                <HumidityConverter data={data.Humidity} />
+                <HumidityConverter dataHumidity={data.Humidity} />
               </div>
             </div>
           </div>

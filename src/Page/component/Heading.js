@@ -7,7 +7,7 @@ function Heading(){
         <div className="Header-Wrap">
             <img src= {Logo} className="Logo-Css"></img>
 
-            <div class="animasi-text"> 
+            <div class="animation-text"> 
                 <span></span>
             </div>
            
