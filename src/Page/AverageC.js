@@ -1,7 +1,7 @@
 //import library dan file dari tempat lain
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db, ref, onValue } from "../Firebase/FirebaseConfigReact";
+import { db, ref, onValue, set } from "../Firebase/FirebaseConfigReact";
 import Heading from "./component/Heading.js";
 import Footer from "./component/Footer.js";
 
@@ -14,6 +14,13 @@ function AverageC() {
         const airQualityData = {};
 
         Object.entries(data).forEach(([_, value]) => { // transform from object jadi array
+            if (!value.Time) { // check apakah data time sudah ada atau belum
+                setTimeout(() => {
+                    getAverageData(data); // mencoba ulang untuk data yang sama setelah 5 detik
+                }, 5000);
+                return; // Keluar dari loop jika Time belum ada
+            }
+
             const date = value.Time.split(",")[0]; // Seperate date and time by index
 
             if (!airQualityData[date]) { // jika belum ada tanggal itu di variable, maka declare semua value sum

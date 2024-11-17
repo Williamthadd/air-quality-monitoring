@@ -1,6 +1,6 @@
 //implementasi firebase untuk environment ReactJs
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, query, orderByChild, limitToLast } from "firebase/database";
+import { getDatabase, ref, set, onValue, query, orderByChild, limitToLast } from "firebase/database";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDgHany4W74s_HfnBYbTQU4uLhACO_wozs",
@@ -15,4 +15,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-export { db, ref, onValue, query, orderByChild, limitToLast };
+export { db, ref, set, onValue, query, orderByChild, limitToLast };
