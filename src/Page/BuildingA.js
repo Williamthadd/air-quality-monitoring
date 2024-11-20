@@ -35,18 +35,22 @@ function BuildingA() {
                 hour12: false
             });;
 
-          // Create a new object with the latest data and updated time
-          const updatedData = {
-            ...latestData,
-            Time: wibTime
-          };
+          // Only update time if data doesn't have a timestamp yet
+          if (!latestData.Time) {
+            // Create new object with time
+            const updatedData = {
+              ...latestData,
+              Time: wibTime
+            };
 
-          // Simpan kembali data terbaru ke Firebase
-          const latestRef = ref(db, `AirQualityMonitorA/${latestKey}`);
-          set(latestRef, updatedData);
-
-          // Update local state with the new data
-          setData(updatedData);
+            // Update Firebase only if time was added
+            const latestRef = ref(db, `AirQualityMonitorA/${latestKey}`);
+            set(latestRef, updatedData);
+            setData(updatedData);
+          } else {
+            // Use existing data if time is already present
+            setData(latestData);
+          }
         }
       });
     };
