@@ -35,15 +35,18 @@ function BuildingB() {
                 hour12: false
             });;
 
-          // Perbarui data dengan properti Time
-          latestData.Time = wibTime;
+          // Create a new object with the latest data and updated time
+          const updatedData = {
+            ...latestData,
+            Time: wibTime
+          };
 
           // Simpan kembali data terbaru ke Firebase
           const latestRef = ref(db, `AirQualityMonitorB/${latestKey}`);
-          set(latestRef, latestData);
+          set(latestRef, updatedData);
 
-          // Simpan ke state
-          setData(latestData);
+          // Update local state with the new data
+          setData(updatedData);
         }
       });
     };
