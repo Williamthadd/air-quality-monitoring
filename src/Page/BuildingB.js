@@ -1,7 +1,7 @@
 //import library dan file dari tempat lain
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db, ref, onValue } from "../Firebase/FirebaseConfigReact";
+import { db, ref, onValue, set } from "../Firebase/FirebaseConfigReact";
 import Heading from "./component/Heading.js";
 import Footer from "./component/Footer.js";
 
@@ -12,37 +12,47 @@ function BuildingB() {
   // handle perubahan jika ada
   useEffect(() => {
     const fetchData = () => {
-      //ambil data AirQualityMonitor dari realtime database AirQualityMonitorBintaro di firebase
+      // Ambil data AirQualityMonitor dari Realtime Database
       const dataRef = ref(db, "AirQualityMonitorB");
       onValue(dataRef, (snapshot) => {
         const newData = snapshot.val();
-        // Mendapatkan kunci terbaru dari objek data
-        const latestKey = Object.keys(newData)[Object.keys(newData).length - 1];
-        // Mendapatkan data terbaru berdasarkan kunci
-        const latestData = newData[latestKey];
-        // Add current time in WIB format
-        const now = new Date();
-        const wibTime = now.toLocaleString('en-GB', {
-          timeZone: 'Asia/Jakarta',
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false
-        }).replace(',', '');
-        latestData.Time = wibTime;
-        // Menyimpan data terbaru ke dalam state
-        setData(latestData);
+
+        if (newData) {
+          // Mendapatkan kunci terbaru
+          const latestKey = Object.keys(newData)[Object.keys(newData).length - 1];
+          const latestData = newData[latestKey];
+
+          // Tambahkan waktu saat ini dalam format WIB
+          const now = new Date();
+          const wibTime = now.toLocaleString('id-ID', {
+                timeZone: 'Asia/Jakarta',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });;
+
+          // Perbarui data dengan properti Time
+          latestData.Time = wibTime;
+
+          // Simpan kembali data terbaru ke Firebase
+          const latestRef = ref(db, `AirQualityMonitorB/${latestKey}`);
+          set(latestRef, latestData);
+
+          // Simpan ke state
+          setData(latestData);
+        }
       });
     };
 
-    //memastikan permintaan ke firebase hanya dilakukan sekali
+    // Memastikan permintaan ke Firebase hanya dilakukan sekali
     fetchData();
 
     return () => {
-      // bersihkan data agar tidak ada yg double
+      // Bersihkan event listener jika diperlukan
     };
   }, []);
 
