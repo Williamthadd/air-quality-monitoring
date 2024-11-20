@@ -20,6 +20,19 @@ function BuildingC() {
         const latestKey = Object.keys(newData)[Object.keys(newData).length - 1];
         // Mendapatkan data terbaru berdasarkan kunci
         const latestData = newData[latestKey];
+        // Add current time in WIB format
+        const now = new Date();
+        const wibTime = now.toLocaleString('en-GB', {
+          timeZone: 'Asia/Jakarta',
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        }).replace(',', '');
+        latestData.Time = wibTime;
         // Menyimpan data terbaru ke dalam state
         setData(latestData);
       });
