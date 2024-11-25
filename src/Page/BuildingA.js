@@ -136,6 +136,7 @@ function BuildingA() {
 
       {data && (
         <div>
+
           <div className="DropDown">
             <h1>Binus Alam Sutera</h1>
 
@@ -214,6 +215,11 @@ function BuildingA() {
           <p className="Time">
             <b>Last updated : </b> {data.Time}{" "}
           </p>
+
+        <div className="Button1">
+          <Link to="/AverageA"><button type="button" class="btn btn-outline-light">History Building A</button></Link>
+        </div>
+        
         </div>
       )}
       <Footer />

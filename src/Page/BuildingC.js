@@ -214,6 +214,10 @@ function BuildingC() {
           <p className="Time">
             <b>Last updated : </b> {data.Time}{" "}
           </p>
+
+          <div className="Button1">
+          <Link to="/AverageC"><button type="button" class="btn btn-outline-light">History Building C</button></Link>
+        </div>
         </div>
       )}
       <Footer />

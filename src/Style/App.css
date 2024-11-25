@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   background-color: #1C3031;
+  font-family: "IBM Plex Mono", monospace;
 }
 
 .App{
@@ -115,6 +116,9 @@
   border-bottom-right-radius: 15px;
 }
 
+.Button1{
+  margin-left: 3.2%;
+}
 .Card2{
   height: 150px;
   width: 99.7%;
@@ -238,6 +242,55 @@
   font-size: 20px;
 }
 
+
+/* Table CSS */
+
+.Table-wrap{
+  width: 100%;
+}
+
+.Table-wrap table{
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.Table-wrap table th{
+  text-align: center;
+  color: black;
+  border: 10px solid #1C3031;
+  background-color: #fffdd0;
+  height: 100px;
+  font-size: 25px;
+}
+
+.Table-wrap table th a{
+  background-color: #fffdd0;
+}
+
+.Table-wrap table td{
+  color: black;
+  border: 10px solid #1C3031;
+  background-color: white;
+  text-align: center;
+  height: 100px;
+  font-size: 20px;
+}
+
+.Table-wrap table td a{
+  background-color: white;
+}
+
+.Button{
+  margin-left: 10.7%;
+  margin-top: 30px;
+}
+
+.Button Link{
+  text-decoration: none;
+  color: white;
+}
+
 @media screen and (max-width: 1050px){
 .middle-wrapper{
     width: 100%;
@@ -259,6 +312,14 @@
     .Card{
       margin-left: 20%;
       width: 500px;
+    }
+
+    .Table-wrap table{
+      width: 100%;
+    }
+
+    .Button{
+      margin-left: 1.8%;
     }
   } 
 
@@ -295,7 +356,41 @@
   .animation-text{
     font-size: 25px;
   }
-} 
+
+  .Table-wrap table{
+    display: flex;
+  }
+
+  .Table-wrap table th{
+    display: flex;
+    font-size: 13px;
+    width: 110px;
+  }
+
+  .Table-wrap table td{
+    width: 110px;
+    display: flex;
+    font-size: 10px;
+  }
+
+  .Table-wrap table td a{
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+  }
+
+  .Table-wrap table th a{
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fffdd0;
+  }
+
+  .Footer-Wrap h1{
+    font-size: 15px;
+  }
+}
 
 @media screen and (max-width: 450px){  
   .Card{
@@ -380,3 +475,4 @@
     font-size: 20px;
   }
 } 
+

@@ -1,6 +1,6 @@
 //import library dan file dari tempat lain
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { db, ref, onValue, set } from "../Firebase/FirebaseConfigReact";
 import Heading from "./component/Heading.js";
 import Footer from "./component/Footer.js";
@@ -74,10 +74,10 @@ function AverageA() {
         if (dataAverage.length > 0) {
             return dataAverage.map((dataAir, index) => (
             <tr key={index}>
-                <td style={{ border: "1px solid white", padding: "8px"}}> {dataAir.date}</td>
-                <td style={{ border: "1px solid white", padding: "8px"}}>{dataAir.temperature}</td>
-                <td style={{ border: "1px solid white", padding: "8px"}}>{dataAir.humidity}</td>
-                <td style={{ border: "1px solid white", padding: "8px"}}>{dataAir.ppm}</td>
+                <td><a>{dataAir.date}</a></td>
+                <td><a>{dataAir.temperature}</a></td>
+                <td><a>{dataAir.humidity}</a></td>
+                <td><a>{dataAir.ppm}</a></td>
             </tr>
             ));
         } 
@@ -91,21 +91,28 @@ function AverageA() {
     };
   
   return (
-    <div style={{ color: "white", minHeight: "100vh" }}>
-      <div>
-        <table style={{width: "100%", textAlign: "center", borderCollapse: "collapse", color: "white",}}>
-          <thead>
+   <div class="App">
+    <Heading />
+
+    <div className="Button">
+        <Link to="/"><button type="button" class="btn btn-outline-light">Back</button></Link>
+    </div>
+
+    <div className="Table-wrap">
+        <table>
+            <thead>
             <tr>
-              <th style={{border: "1px solid white", padding: "8px"}}>Date</th>
-              <th style={{border: "1px solid white", padding: "8px"}}>Temperature</th>
-              <th style={{border: "1px solid white", padding: "8px"}}>Humidity</th>
-              <th style={{border: "1px solid white", padding: "8px"}}>PPM</th>
+              <th><a>Date</a></th>
+              <th><a>Temperature</a></th>
+              <th><a>Humidity</a></th>
+              <th><a>PPM</a></th>
             </tr>
-          </thead>
+            </thead>
           <tbody>{fillTableData()}</tbody>
         </table>
-      </div>
     </div>
+    <Footer />
+</div> 
   );
 }
 
