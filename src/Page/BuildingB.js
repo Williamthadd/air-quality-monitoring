@@ -137,7 +137,7 @@ function BuildingB() {
       {data && (
         <div>
           <div className="DropDown">
-            <h1>Binus Alam Sutera</h1>
+          <h1>Ruang Kelas B</h1>
 
             <div class="btn-group">
               <button
