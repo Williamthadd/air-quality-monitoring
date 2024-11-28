@@ -138,7 +138,7 @@ function BuildingA() {
         <div>
 
           <div className="DropDown">          
-            <h1>Ruang Kelas A</h1>
+            <h1>Classroom A</h1>
 
             <div class="btn-group">
               <button
