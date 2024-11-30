@@ -3,9 +3,9 @@ import "../src/Style/App.css"
 import BuildingA from "./Page/BuildingA.js"
 import BuildingB from "./Page/BuildingB.js"
 import BuildingC from "./Page/BuildingC.js"
-import AverageA from "./Page/AverageA.js"
-import AverageB from "./Page/AverageB.js"
-import AverageC from "./Page/AverageC.js"
+import ChartA from "./Page/ChartA.js"
+import ChartB from "./Page/ChartB.js"
+import ChartC from "./Page/ChartC.js"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // last updated 11/28/2024 12:51
 function App() {
@@ -36,23 +36,23 @@ function App() {
           />
 
           <Route 
-            path="/AverageA"
+            path="/ChartA"
             element={
-              <AverageA/>
+              <ChartA/>
             }
           />
 
           <Route 
-            path="/AverageB"
+            path="/ChartB"
             element={
-              <AverageB/>
+              <ChartB/>
             }
           />
 
           <Route 
-            path="/AverageC"
+            path="/ChartC"
             element={
-              <AverageC/>
+              <ChartC/>
             }
           />
 

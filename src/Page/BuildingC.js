@@ -6,60 +6,30 @@ import Heading from "./component/Heading.js";
 import Footer from "./component/Footer.js";
 
 function BuildingC() {
-  //declare data
+  //declare state
   const [data, setData] = useState(null);
 
   // handle perubahan jika ada
   useEffect(() => {
     const fetchData = () => {
-      // Ambil data AirQualityMonitor dari Realtime Database
+      //ambil data AirQualityMonitor dari realtime database AirQualityMonitorBintaro di firebase
       const dataRef = ref(db, "AirQualityMonitorC");
       onValue(dataRef, (snapshot) => {
         const newData = snapshot.val();
-
-        if (newData) {
-          // Mendapatkan kunci terbaru
-          const latestKey = Object.keys(newData)[Object.keys(newData).length - 1];
-          const latestData = newData[latestKey];
-
-          // Tambahkan waktu saat ini dalam format WIB
-          const now = new Date();
-          const wibTime = now.toLocaleString('id-ID', {
-                timeZone: 'Asia/Jakarta',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            });;
-
-          // Only update time if data doesn't have a timestamp yet
-          if (!latestData.Time) {
-            // Create new object with time
-            const updatedData = {
-              ...latestData,
-              Time: wibTime
-            };
-
-            // Update Firebase only if time was added
-            const latestRef = ref(db, `AirQualityMonitorC/${latestKey}`);
-            set(latestRef, updatedData);
-            setData(updatedData);
-          } else {
-            // Use existing data if time is already present
-            setData(latestData);
-          }
-        }
+        // Mendapatkan kunci terbaru dari objek data
+        const latestKey = Object.keys(newData)[Object.keys(newData).length - 1];
+        // Mendapatkan data terbaru berdasarkan kunci
+        const latestData = newData[latestKey];
+        // Menyimpan data terbaru ke dalam state
+        setData(latestData);
       });
     };
 
-    // Memastikan permintaan ke Firebase hanya dilakukan sekali
+    //memastikan permintaan ke firebase hanya dilakukan sekali
     fetchData();
 
     return () => {
-      // Bersihkan event listener jika diperlukan
+      // bersihkan data agar tidak ada yg double
     };
   }, []);
 
@@ -137,7 +107,7 @@ function BuildingC() {
       {data && (
         <div>
           <div className="DropDown">
-          <h1>Classroom C</h1>
+            <h1>Classroom C</h1>
 
             <div class="btn-group">
               <button
@@ -216,8 +186,12 @@ function BuildingC() {
           </p>
 
           <div className="Button1">
-          <Link to="/AverageC"><button type="button" class="btn btn-outline-light">History Building C</button></Link>
-        </div>
+            <Link to="/ChartC">
+              <button type="button" class="btn btn-outline-light">
+                History Building C
+              </button>
+            </Link>
+          </div>
         </div>
       )}
       <Footer />
