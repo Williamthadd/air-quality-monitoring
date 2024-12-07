@@ -22,7 +22,15 @@ client.on('connect', () => {
 client.on('message', (topic, message) => {
   console.log(message.toString());
 
-  const currentTime = new Date().toLocaleString();
+  const currentTime = new Date().toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: true,
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric'
+  });
 
   //mengambil data yg lebih spesifik dengan memecah isi message
   const components = message.toString().split(", ");
