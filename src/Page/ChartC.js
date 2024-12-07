@@ -16,77 +16,98 @@ function ChartC() {
 
     const getAverageData = (data) => {
         const today = new Date();
-        //convert date ke string
         const todayStr = today.toLocaleDateString();
-        
         const timeGroups = {};
-        
-        // iterate setiap date
+      
         Object.entries(data).forEach(([_, value]) => {
-            // prevent waktu kosong
-            if (!value.Time) {
+            if (!value || !value.Time) {
+    
                 setTimeout(() => {
+    
                     getAverageData(data);
+    
                 }, 5000);
+    
                 return;
+    
             }
+      
+          // Parse waktu
+          const [datePart, timePart] = value.Time.split(", ");
+          
+          // Parse tanggal dengan format MM/DD/YYYY
+          const [month, day, year] = datePart.split("/");
+          const dateStr = `${month}/${day}/${year}`;
+      
+          // Skip jika bukan hari ini
+          if (dateStr !== todayStr) return;
+      
+          // Parse waktu dengan format HH:MM:SS AM/PM
+          let hour, minute;
+          if (timePart.includes('AM') || timePart.includes('PM')) {
+            const [time, period] = timePart.split(' ');
+            const [hourStr, minuteStr] = time.split(':');
             
-            // seperate date & time
-            const [datePart, timePart] = value.Time.split(", ");
-            // seperate date, month, nand year
-            const [day, month, year] = datePart.split('/');
-            // convert ke string
-            const dateStr = `${month}/${day}/${year}`;
+            hour = parseInt(hourStr);
+            minute = parseInt(minuteStr);
             
-            // lewati jika bukan data hari ini
-            if (dateStr !== todayStr) return;
-            
-            // menghitung interval waktu 30 menit
-            const [hour, minute] = timePart.split('.');
-            const intervalMinute = Math.floor(parseInt(minute) / 15) * 15;
-            const timeKey = `${hour}:${intervalMinute.toString().padStart(2, '0')}`; // ubah format waktu
-            
-            // declare array jika belum ada timegroup
-            if (!timeGroups[timeKey]) {
-                timeGroups[timeKey] = {
-                    temperatureValues: [],
-                    humidityValues: [],
-                    ppmValues: [],
-                };
+            // Konversi ke format 24 jam
+            if (period === 'PM' && hour !== 12) {
+              hour += 12;
+            } else if (period === 'AM' && hour === 12) {
+              hour = 0;
             }
-
-            // push data jika bukan nan
-            if (value.Temperature !== "nan") {
-                timeGroups[timeKey].temperatureValues.push(parseFloat(value.Temperature));
-            }
-            if (value.Humidity !== "nan") {
-                timeGroups[timeKey].humidityValues.push(parseFloat(value.Humidity));
-            }
-            if (value.PPM !== "nan") {
-                timeGroups[timeKey].ppmValues.push(parseFloat(value.PPM));
-            }
+          } else {
+            const [hourStr, minuteStr] = timePart.split(':');
+            hour = parseInt(hourStr);
+            minute = parseInt(minuteStr);
+          }
+      
+          // Generate timeKey dengan interval 15 menit
+          const intervalMinute = Math.floor(minute / 15) * 15;
+          const timeKey = `${hour.toString().padStart(2, '0')}:${intervalMinute.toString().padStart(2, '0')}`;
+      
+          // Initialize timeGroup jika belum ada
+          if (!timeGroups[timeKey]) {
+            timeGroups[timeKey] = {
+              temperatureValues: [],
+              humidityValues: [],
+              ppmValues: []
+            };
+          }
+      
+          // Tambahkan data valid ke groups
+          if (value.Temperature && value.Temperature !== "nan") {
+            timeGroups[timeKey].temperatureValues.push(parseFloat(value.Temperature));
+          }
+          if (value.Humidity && value.Humidity !== "nan") {
+            timeGroups[timeKey].humidityValues.push(parseFloat(value.Humidity));
+          }
+          if (value.PPM && value.PPM !== "nan") {
+            timeGroups[timeKey].ppmValues.push(parseFloat(value.PPM));
+          }
         });
-        
-        // hitung average
-        const calculateAvg = (arr) => {
-            if (arr.length === 0) return "nan";
-            return (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(2);
-        };
-        
-        // return data setelah diAveraged
+      
+        // Hitung rata-rata dan return hasil
         return Object.entries(timeGroups)
-            .map(([timeKey, values]) => ({
-                date: timeKey,
-                temperature: calculateAvg(values.temperatureValues),
-                humidity: calculateAvg(values.humidityValues),
-                ppm: calculateAvg(values.ppmValues),
-            }))
-            .sort((a, b) => {
-                const timeA = a.date.split(':').map(Number);
-                const timeB = b.date.split(':').map(Number);
-                return (timeA[0] * 60 + timeA[1]) - (timeB[0] * 60 + timeB[1]);
-            });
-    };
+          .map(([timeKey, values]) => ({
+            date: timeKey,
+            temperature: values.temperatureValues.length > 0 
+              ? (values.temperatureValues.reduce((a, b) => a + b, 0) / values.temperatureValues.length).toFixed(2)
+              : "nan",
+            humidity: values.humidityValues.length > 0
+              ? (values.humidityValues.reduce((a, b) => a + b, 0) / values.humidityValues.length).toFixed(2)
+              : "nan",
+            ppm: values.ppmValues.length > 0
+              ? (values.ppmValues.reduce((a, b) => a + b, 0) / values.ppmValues.length).toFixed(2)
+              : "nan"
+          }))
+          .sort((a, b) => {
+            const [hourA, minA] = a.date.split(':').map(Number);
+            const [hourB, minB] = b.date.split(':').map(Number);
+            return (hourA * 60 + minA) - (hourB * 60 + minB);
+          });
+      };
 
     useEffect(() => {
         const fetchData = () => {

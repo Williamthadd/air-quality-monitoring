@@ -3,7 +3,7 @@ const db = require('../Firebase/FirebaseConfigNode');
 const mqtt = require('mqtt');
 
 // delcare data mqtt
-const mqttServer = 'test.mosquitto.org';
+const mqttServer = 'broker.hivemq.com';
 const mqttPort = 1883;
 const mqtt_topic_main = 'AirQualityMonitorA';
 
@@ -20,6 +20,7 @@ client.on('connect', () => {
 
 //mengambil output dari message mqtt
 client.on('message', (topic, message) => {
+  console.log(message.toString());
 
   const currentTime = new Date().toLocaleString();
 
