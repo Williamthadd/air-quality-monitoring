@@ -56,22 +56,22 @@ function BuildingA() {
   }
 
   function PPMConveter({ dataPPM }) {
-    if (dataPPM > 100) {
+    if (dataPPM < 1000) {
       return (
         <div className="Card4">
-          <h1>High</h1>
+          <h1>Safe</h1>
         </div>
       );
-    } else if (dataPPM >= 50 && dataPPM <= 100) {
+    } else if (dataPPM >= 1000 && dataPPM <= 1500) {
       return (
         <div className="Card5">
-          <h1>Medium</h1>
+          <h1>Moderate</h1>
         </div>
       );
     } else {
       return (
         <div className="Card6">
-          <h1>Safe</h1>
+          <h1>Dangerous</h1>
         </div>
       );
     }
