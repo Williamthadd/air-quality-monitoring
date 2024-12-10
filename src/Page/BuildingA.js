@@ -58,7 +58,7 @@ function BuildingA() {
   function PPMConveter({ dataPPM }) {
     if (dataPPM < 1000) {
       return (
-        <div className="Card4">
+        <div className="Card6">
           <h1>Safe</h1>
         </div>
       );
@@ -70,7 +70,7 @@ function BuildingA() {
       );
     } else {
       return (
-        <div className="Card6">
+        <div className="Card4">
           <h1>Dangerous</h1>
         </div>
       );
