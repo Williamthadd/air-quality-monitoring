@@ -1,7 +1,7 @@
 //import library dan file dari tempat lain
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db, ref, onValue, set } from "../Firebase/FirebaseConfigReact";
+import { db, ref, onValue } from "../Firebase/FirebaseConfigReact";
 import Heading from "./component/Heading.js";
 import Footer from "./component/Footer.js";
 
@@ -16,12 +16,29 @@ function BuildingA() {
       const dataRef = ref(db, "AirQualityMonitorA");
       onValue(dataRef, (snapshot) => {
         const newData = snapshot.val();
-        // Mendapatkan kunci terbaru dari objek data
-        const latestKey = Object.keys(newData)[Object.keys(newData).length - 1];
-        // Mendapatkan data terbaru berdasarkan kunci
-        const latestData = newData[latestKey];
-        // Menyimpan data terbaru ke dalam state
-        setData(latestData);
+        const dataArray = Object.values(newData);
+        const totalEntries = dataArray.length;
+
+        // get data untuk average setiap air quality parameter
+        const ppmData = dataArray.slice(Math.max(totalEntries - 33, 0)); // ambil 33 data terakhir
+        const humidityData = dataArray.slice(Math.max(totalEntries - 25, 0)); // ambil 25 data terakhir
+        const temperatureData = dataArray.slice(Math.max(totalEntries - 17, 0)); // ambil 17 data terakhir
+
+        // rata-rata setiap air quality parameter
+        const averagePPM = calculateAverage(ppmData.map(item => parseFloat(item.PPM) || 0));
+        const averageHumidity = calculateAverage(humidityData.map(item => parseFloat(item.Humidity) || 0));
+        const averageTemperature = calculateAverage(temperatureData.map(item => parseFloat(item.Temperature) || 0));
+
+        // Get the latest timestamp
+        const latestData = dataArray[dataArray.length - 1];
+
+        // set updated data
+        setData({
+          PPM: parseFloat(averagePPM.toFixed(2)),
+          Humidity: parseFloat(averageHumidity.toFixed(2)),
+          Temperature: parseFloat(averageTemperature.toFixed(2)),
+          Time: latestData.Time
+        });
       });
     };
 
@@ -32,6 +49,11 @@ function BuildingA() {
       // bersihkan data agar tidak ada yg double
     };
   }, []);
+
+  // 
+  const calculateAverage = (array) => {
+    return array.reduce((a, b) => a + b, 0) / array.length;
+  };
 
   function TemperatureConverter({ dataTemperature }) {
     if (dataTemperature > 27) {
