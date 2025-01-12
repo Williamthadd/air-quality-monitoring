@@ -7,7 +7,7 @@ import ChartA from "./Page/ChartA.js"
 import ChartB from "./Page/ChartB.js"
 import ChartC from "./Page/ChartC.js"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// last updated 11/28/2024 12:51
+// last updated 01/12/2025 12:51
 function App() {
   return (
     <div>
