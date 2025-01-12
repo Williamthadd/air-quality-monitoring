@@ -193,7 +193,7 @@ function ChartB() {
                     <button type="button" className="btn btn-outline-light">Back</button>
                 </Link>
             </div>
-            <p className="Time">
+            <p className="TimeChart">
             <b>
                 {new Date().toLocaleString('id-ID', {
                     day: 'numeric',

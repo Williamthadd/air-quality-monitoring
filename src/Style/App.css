@@ -117,7 +117,7 @@
 }
 
 .Button1{
-  margin-left: 3.2%;
+  margin-left: 70px;
 }
 .Card2{
   height: 150px;
@@ -226,6 +226,13 @@
   font-size: 20px;
 }
 
+.TimeChart{
+  color: white;
+  margin-left: 10.7%;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
 .Footer-Wrap{
   position: sticky;
   background-color: #1C3031;
@@ -313,12 +320,13 @@
       margin-left: 20%;
       width: 500px;
     }
-
     .Table-wrap table{
       width: 100%;
     }
-
     .Button{
+      margin-left: 1.8%;
+    }
+    .TimeChart{
       margin-left: 1.8%;
     }
   } 
