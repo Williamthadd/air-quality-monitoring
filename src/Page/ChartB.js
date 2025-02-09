@@ -1,18 +1,17 @@
-//import library dan file dari tempat lain
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db, ref, onValue } from "../Firebase/FirebaseConfigReact.js";
 import Heading from "./component/Heading.js";
 import Footer from "./component/Footer.js";
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Legend} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 
-ChartJS.register(CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 function ChartB() {
-    // declare state
     const [dataAverage, setDataAverage] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [hasData, setHasData] = useState(false);
 
     const getAverageData = (data) => {
         const today = new Date();
@@ -21,110 +20,98 @@ function ChartB() {
       
         Object.entries(data).forEach(([_, value]) => {
             if (!value || !value.Time) {
-    
                 setTimeout(() => {
-    
                     getAverageData(data);
-    
                 }, 5000);
-    
                 return;
-    
             }
       
-          // Parse waktu
-          const [datePart, timePart] = value.Time.split(", ");
-          
-          // Parse tanggal dengan format MM/DD/YYYY
-          const [month, day, year] = datePart.split("/");
-          const dateStr = `${month}/${day}/${year}`;
+            const [datePart, timePart] = value.Time.split(", ");
+            const [month, day, year] = datePart.split("/");
+            const dateStr = `${month}/${day}/${year}`;
       
-          // Skip jika bukan hari ini
-          if (dateStr !== todayStr) return;
+            if (dateStr !== todayStr) return;
       
-          // Parse waktu dengan format HH:MM:SS AM/PM
-          let hour, minute;
-          if (timePart.includes("AM") || timePart.includes("PM")) {
-            const [time, period] = timePart.split(" ");
-            const [hourStr, minuteStr] = time.split(":");
-            
-            hour = parseInt(hourStr);
-            minute = parseInt(minuteStr);
-            
-            // Konversi ke format 24 jam
-            if (period === "PM" && hour !== 12) {
-              hour += 12;
-            } else if (period === "AM" && hour === 12) {
-              hour = 0;
+            let hour, minute;
+            if (timePart.includes("AM") || timePart.includes("PM")) {
+                const [time, period] = timePart.split(" ");
+                const [hourStr, minuteStr] = time.split(":");
+                
+                hour = parseInt(hourStr);
+                minute = parseInt(minuteStr);
+                
+                if (period === "PM" && hour !== 12) {
+                    hour += 12;
+                } else if (period === "AM" && hour === 12) {
+                    hour = 0;
+                }
+            } else {
+                const [hourStr, minuteStr] = timePart.split(".");
+                hour = parseInt(hourStr);
+                minute = parseInt(minuteStr);
             }
-          } else {
-            const [hourStr, minuteStr] = timePart.split(".");
-            hour = parseInt(hourStr);
-            minute = parseInt(minuteStr);
-          }
       
-          // Generate timeKey dengan interval 15 menit
-          const intervalMinute = Math.floor(minute / 15) * 15;
-          const timeKey = `${hour.toString().padStart(2, "0")}:${intervalMinute.toString().padStart(2, "0")}`;
+            const intervalMinute = Math.floor(minute / 15) * 15;
+            const timeKey = `${hour.toString().padStart(2, "0")}:${intervalMinute.toString().padStart(2, "0")}`;
       
-          // Initialize timeGroup jika belum ada
-          if (!timeGroups[timeKey]) {
-            timeGroups[timeKey] = {
-              temperatureValues: [],
-              humidityValues: [],
-              ppmValues: []
-            };
-          }
+            if (!timeGroups[timeKey]) {
+                timeGroups[timeKey] = {
+                    temperatureValues: [],
+                    humidityValues: [],
+                    ppmValues: []
+                };
+            }
       
-          // Tambahkan data valid ke groups
-          if (value.Temperature && value.Temperature !== "nan") {
-            timeGroups[timeKey].temperatureValues.push(parseFloat(value.Temperature));
-          }
-          if (value.Humidity && value.Humidity !== "nan") {
-            timeGroups[timeKey].humidityValues.push(parseFloat(value.Humidity));
-          }
-          if (value.PPM && value.PPM !== "nan") {
-            timeGroups[timeKey].ppmValues.push(parseFloat(value.PPM));
-          }
+            if (value.Temperature && value.Temperature !== "nan") {
+                timeGroups[timeKey].temperatureValues.push(parseFloat(value.Temperature));
+            }
+            if (value.Humidity && value.Humidity !== "nan") {
+                timeGroups[timeKey].humidityValues.push(parseFloat(value.Humidity));
+            }
+            if (value.PPM && value.PPM !== "nan") {
+                timeGroups[timeKey].ppmValues.push(parseFloat(value.PPM));
+            }
         });
       
-        // Hitung rata-rata dan return hasil
-        return Object.entries(timeGroups)
-          .map(([timeKey, values]) => ({
-            date: timeKey,
-            temperature: values.temperatureValues.length > 0 
-              ? (values.temperatureValues.reduce((a, b) => a + b, 0) / values.temperatureValues.length).toFixed(2)
-              : "nan",
-            humidity: values.humidityValues.length > 0
-              ? (values.humidityValues.reduce((a, b) => a + b, 0) / values.humidityValues.length).toFixed(2)
-              : "nan",
-            ppm: values.ppmValues.length > 0
-              ? (values.ppmValues.reduce((a, b) => a + b, 0) / values.ppmValues.length).toFixed(2)
-              : "nan"
-          }))
-          .sort((a, b) => {
-            const [hourA, minA] = a.date.split(":").map(Number);
-            const [hourB, minB] = b.date.split(":").map(Number);
-            return (hourA * 60 + minA) - (hourB * 60 + minB);
-          });
-      };
+        const averages = Object.entries(timeGroups)
+            .map(([timeKey, values]) => ({
+                date: timeKey,
+                temperature: values.temperatureValues.length > 0 
+                    ? (values.temperatureValues.reduce((a, b) => a + b, 0) / values.temperatureValues.length).toFixed(2)
+                    : "nan",
+                humidity: values.humidityValues.length > 0
+                    ? (values.humidityValues.reduce((a, b) => a + b, 0) / values.humidityValues.length).toFixed(2)
+                    : "nan",
+                ppm: values.ppmValues.length > 0
+                    ? (values.ppmValues.reduce((a, b) => a + b, 0) / values.ppmValues.length).toFixed(2)
+                    : "nan"
+            }))
+            .sort((a, b) => {
+                const [hourA, minA] = a.date.split(":").map(Number);
+                const [hourB, minB] = b.date.split(":").map(Number);
+                return (hourA * 60 + minA) - (hourB * 60 + minB);
+            });
+
+        return averages;
+    };
 
     useEffect(() => {
         const fetchData = () => {
             const dataRef = ref(db, "AirQualityMonitorB");
             const timeout = setTimeout(() => setLoading(true), 1000);
+            
             onValue(dataRef, (snapshot) => {
                 clearTimeout(timeout);
                 const originData = snapshot.val();
                 const averages = getAverageData(originData);
                 setDataAverage(averages);
+                setHasData(averages && averages.length > 0);
                 setLoading(false);
             });
         };
         fetchData();
     }, []);
 
-    // atur mode graph
     const commonOptions = {
         responsive: true,
         interaction: {
@@ -194,17 +181,19 @@ function ChartB() {
                 </Link>
             </div>
             <p className="TimeChart">
-            <b>
-                {new Date().toLocaleString("en-EN", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                    timeZone: "Asia/Jakarta"
-                })}
+                <b>
+                    {new Date().toLocaleString("en-EN", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                        timeZone: "Asia/Jakarta"
+                    })}
                 </b> 
             </p>
             {loading ? (
                 <div style={{ textAlign: "center", color: "white" }}>Loading...</div>
+            ) : !hasData ? (
+                <div style={{ textAlign: "center", color: "white", marginTop: "2rem" }}>No data yet...</div>
             ) : (
                 <>
                     <div className="Graph-wrap">
