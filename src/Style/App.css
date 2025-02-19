@@ -298,6 +298,11 @@
   color: white;
 }
 
+.chart-text{
+  color: white;
+  text-align: center;
+}
+
 @media screen and (max-width: 1050px){
 .middle-wrapper{
     width: 100%;
@@ -398,6 +403,15 @@
   .Footer-Wrap h1{
     font-size: 15px;
   }
+
+  .Time{
+    margin-left: 20px;
+  }
+
+  .Button1{
+    margin-left: 20px;
+  }
+
 }
 
 @media screen and (max-width: 450px){  

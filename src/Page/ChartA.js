@@ -191,13 +191,13 @@ function ChartA() {
                 </b> 
             </p>
             {loading ? (
-                <div style={{ textAlign: "center", color: "white" }}>Loading...</div>
+                <div className="chart-text">Loading...</div>
             ) : !hasData ? (
-                <div style={{ textAlign: "center", color: "white", marginTop: "2rem" }}>No data yet...</div>
+                <div className="chart-text">No data yet...</div>
             ) : (
                 <>
                     <div className="Graph-wrap">
-                        <h3 style={{ color: "white", textAlign: "center" }}>Temperature</h3>
+                        <h3 className="chart-text">Temperature</h3>
                         <Line 
                             data={temperatureData} 
                             options={{
@@ -214,7 +214,7 @@ function ChartA() {
                         />
                     </div>
                     <div className="Graph-wrap">
-                        <h3 style={{ color: "white", textAlign: "center" }}>Humidity</h3>
+                        <h3 className="chart-text">Humidity</h3>
                         <Line 
                             data={humidityData} 
                             options={{
@@ -231,7 +231,7 @@ function ChartA() {
                         />
                     </div>
                     <div className="Graph-wrap">
-                        <h3 style={{ color: "white", textAlign: "center" }}>PPM CO2</h3>
+                        <h3 className="chart-text">PPM CO2</h3>
                         <Line 
                             data={ppmData} 
                             options={{

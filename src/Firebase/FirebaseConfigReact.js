@@ -3,13 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue, query, orderByChild, limitToLast } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDgHany4W74s_HfnBYbTQU4uLhACO_wozs",
-    authDomain: "airquality-6fa1b.firebaseapp.com",
-    databaseURL: "https://airquality-6fa1b-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "airquality-6fa1b",
-    storageBucket: "airquality-6fa1b.appspot.com",
-    messagingSenderId: "587152917043",
-    appId: "1:587152917043:web:463a86db01d5b858025946"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
