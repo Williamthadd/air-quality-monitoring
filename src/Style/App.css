@@ -303,6 +303,12 @@
   text-align: center;
 }
 
+.building-prevent-text{
+  color: white;
+  text-align: center;
+  margin-top: 10%;
+}
+
 @media screen and (max-width: 1050px){
 .middle-wrapper{
     width: 100%;

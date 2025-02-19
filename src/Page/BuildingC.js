@@ -16,29 +16,31 @@ function BuildingC() {
       const dataRef = ref(db, "AirQualityMonitorC");
       onValue(dataRef, (snapshot) => {
         const newData = snapshot.val();
-        const dataArray = Object.values(newData);
-        const totalEntries = dataArray.length;
+        if(newData){
+          const dataArray = Object.values(newData);
+          const totalEntries = dataArray.length;
 
-        // get data untuk average setiap air quality parameter
-        const ppmData = dataArray.slice(Math.max(totalEntries - 33, 0)); //  ambil 33 data terakhir
-        const humidityData = dataArray.slice(Math.max(totalEntries - 25, 0)); //  ambil 25 data terakhir
-        const temperatureData = dataArray.slice(Math.max(totalEntries - 17, 0)); //  ambil 17 data terakhir
+          // get data untuk average setiap air quality parameter
+          const ppmData = dataArray.slice(Math.max(totalEntries - 33, 0)); //  ambil 33 data terakhir
+          const humidityData = dataArray.slice(Math.max(totalEntries - 25, 0)); //  ambil 25 data terakhir
+          const temperatureData = dataArray.slice(Math.max(totalEntries - 17, 0)); //  ambil 17 data terakhir
 
-        // rata-rata setiap air quality parameter
-        const averagePPM = calculateAverage(ppmData.map(item => parseFloat(item.PPM) || 0));
-        const averageHumidity = calculateAverage(humidityData.map(item => parseFloat(item.Humidity) || 0));
-        const averageTemperature = calculateAverage(temperatureData.map(item => parseFloat(item.Temperature) || 0));
+          // rata-rata setiap air quality parameter
+          const averagePPM = calculateAverage(ppmData.map(item => parseFloat(item.PPM) || 0));
+          const averageHumidity = calculateAverage(humidityData.map(item => parseFloat(item.Humidity) || 0));
+          const averageTemperature = calculateAverage(temperatureData.map(item => parseFloat(item.Temperature) || 0));
 
-        // Get the latest timestamp
-        const latestData = dataArray[dataArray.length - 1];
+          // Get the latest timestamp
+          const latestData = dataArray[dataArray.length - 1];
 
-        // set updated data
-        setData({
-          PPM: parseFloat(averagePPM.toFixed(2)),
-          Humidity: parseFloat(averageHumidity.toFixed(2)),
-          Temperature: parseFloat(averageTemperature.toFixed(2)),
-          Time: latestData.Time
-        });
+          // set updated data
+          setData({
+            PPM: parseFloat(averagePPM.toFixed(2)),
+            Humidity: parseFloat(averageHumidity.toFixed(2)),
+            Temperature: parseFloat(averageTemperature.toFixed(2)),
+            Time: latestData.Time
+          });
+        }
       });
     };
 
@@ -126,8 +128,6 @@ function BuildingC() {
       <Heading />
       <br />
 
-      {data && (
-        <div>
           <div className="DropDown">
             <h1>Classroom C</h1>
 
@@ -160,6 +160,8 @@ function BuildingC() {
             </div>
           </div>
 
+          {data ? (
+            <div>
           <div className="middle-wrapper">
             <div className="Card">
               <div className="Card2">
@@ -214,6 +216,10 @@ function BuildingC() {
               </button>
             </Link>
           </div>
+        </div>
+      ) : (
+        <div>
+          <h1 className="building-prevent-text">No data yet...</h1>
         </div>
       )}
       <Footer />

@@ -16,29 +16,39 @@ function BuildingB() {
       const dataRef = ref(db, "AirQualityMonitorB");
       onValue(dataRef, (snapshot) => {
         const newData = snapshot.val();
-        const dataArray = Object.values(newData);
-        const totalEntries = dataArray.length;
+        if (newData) {
+          const dataArray = Object.values(newData);
+          const totalEntries = dataArray.length;
 
-        // get data untuk average setiap air quality parameter
-        const ppmData = dataArray.slice(Math.max(totalEntries - 33, 0)); // ambil 33 data terakhir
-        const humidityData = dataArray.slice(Math.max(totalEntries - 25, 0)); //  ambil 25 data terakhir
-        const temperatureData = dataArray.slice(Math.max(totalEntries - 17, 0)); // ambil 17 data terakhir
+          // get data untuk average setiap air quality parameter
+          const ppmData = dataArray.slice(Math.max(totalEntries - 33, 0)); // ambil 33 data terakhir
+          const humidityData = dataArray.slice(Math.max(totalEntries - 25, 0)); //  ambil 25 data terakhir
+          const temperatureData = dataArray.slice(
+            Math.max(totalEntries - 17, 0)
+          ); // ambil 17 data terakhir
 
-        // rata-rata setiap air quality parameter
-        const averagePPM = calculateAverage(ppmData.map(item => parseFloat(item.PPM) || 0));
-        const averageHumidity = calculateAverage(humidityData.map(item => parseFloat(item.Humidity) || 0));
-        const averageTemperature = calculateAverage(temperatureData.map(item => parseFloat(item.Temperature) || 0));
+          // rata-rata setiap air quality parameter
+          const averagePPM = calculateAverage(
+            ppmData.map((item) => parseFloat(item.PPM) || 0)
+          );
+          const averageHumidity = calculateAverage(
+            humidityData.map((item) => parseFloat(item.Humidity) || 0)
+          );
+          const averageTemperature = calculateAverage(
+            temperatureData.map((item) => parseFloat(item.Temperature) || 0)
+          );
 
-        // Get the latest timestamp
-        const latestData = dataArray[dataArray.length - 1];
+          // Get the latest timestamp
+          const latestData = dataArray[dataArray.length - 1];
 
-        // set updated data
-        setData({
-          PPM: parseFloat(averagePPM.toFixed(2)),
-          Humidity: parseFloat(averageHumidity.toFixed(2)),
-          Temperature: parseFloat(averageTemperature.toFixed(2)),
-          Time: latestData.Time
-        });
+          // set updated data
+          setData({
+            PPM: parseFloat(averagePPM.toFixed(2)),
+            Humidity: parseFloat(averageHumidity.toFixed(2)),
+            Temperature: parseFloat(averageTemperature.toFixed(2)),
+            Time: latestData.Time,
+          });
+        }
       });
     };
 
@@ -50,7 +60,7 @@ function BuildingB() {
     };
   }, []);
 
-  // 
+  //
   const calculateAverage = (array) => {
     return array.reduce((a, b) => a + b, 0) / array.length;
   };
@@ -125,41 +135,39 @@ function BuildingB() {
     <div class="App">
       <Heading />
       <br />
+      <div className="DropDown">
+        <h1>Classroom B</h1>
 
-      {data && (
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-secondary dropdown-toggle"
+            data-bs-toggle="dropdown"
+            data-bs-display="static"
+            aria-expanded="false"
+          >
+            Building B
+          </button>
+          <ul class="dropdown-menu">
+            <Link to="/" className="Link">
+              <li className="libutton">
+                <button class="dropdown-item" type="button">
+                  Building A
+                </button>
+              </li>
+            </Link>
+            <Link to="/BuildingC">
+              <li className="libutton">
+                <button class="dropdown-item" type="button">
+                  Building C
+                </button>
+              </li>
+            </Link>
+          </ul>
+        </div>
+      </div>
+      {data ? (
         <div>
-          <div className="DropDown">
-            <h1>Classroom B</h1>
-
-            <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-secondary dropdown-toggle"
-                data-bs-toggle="dropdown"
-                data-bs-display="static"
-                aria-expanded="false"
-              >
-                Building B
-              </button>
-              <ul class="dropdown-menu">
-                <Link to="/" className="Link">
-                  <li className="libutton">
-                    <button class="dropdown-item" type="button">
-                      Building A
-                    </button>
-                  </li>
-                </Link>
-                <Link to="/BuildingC">
-                  <li className="libutton">
-                    <button class="dropdown-item" type="button">
-                      Building C
-                    </button>
-                  </li>
-                </Link>
-              </ul>
-            </div>
-          </div>
-
           <div className="middle-wrapper">
             <div className="Card">
               <div className="Card2">
@@ -214,6 +222,10 @@ function BuildingB() {
               </button>
             </Link>
           </div>
+        </div>
+      ) : (
+        <div>
+          <h1 className="building-prevent-text">No data yet...</h1>
         </div>
       )}
 
