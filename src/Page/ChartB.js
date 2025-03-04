@@ -12,10 +12,10 @@ function ChartB() {
     const [dataAverage, setDataAverage] = useState([]);
     const [loading, setLoading] = useState(true);
     const [hasData, setHasData] = useState(false);
+    const [latestDate, setLatestDate] = useState(null);
 
     const getAverageData = (data) => {
-        const today = new Date();
-        const todayStr = today.toLocaleDateString();
+        let latestDateFromData = null;
         const timeGroups = {};
       
         Object.entries(data).forEach(([_, value]) => {
@@ -29,8 +29,11 @@ function ChartB() {
             const [datePart, timePart] = value.Time.split(", ");
             const [month, day, year] = datePart.split("/");
             const dateStr = `${month}/${day}/${year}`;
-      
-            if (dateStr !== todayStr) return;
+
+            // Update latest date if needed
+            if (!latestDateFromData || new Date(dateStr) > new Date(latestDateFromData)) {
+                latestDateFromData = dateStr;
+            }
       
             let hour, minute;
             if (timePart.includes("AM") || timePart.includes("PM")) {
@@ -51,27 +54,32 @@ function ChartB() {
                 minute = parseInt(minuteStr);
             }
       
-            const intervalMinute = Math.floor(minute / 15) * 15;
-            const timeKey = `${hour.toString().padStart(2, "0")}:${intervalMinute.toString().padStart(2, "0")}`;
-      
-            if (!timeGroups[timeKey]) {
-                timeGroups[timeKey] = {
-                    temperatureValues: [],
-                    humidityValues: [],
-                    ppmValues: []
-                };
-            }
-      
-            if (value.Temperature && value.Temperature !== "nan") {
-                timeGroups[timeKey].temperatureValues.push(parseFloat(value.Temperature));
-            }
-            if (value.Humidity && value.Humidity !== "nan") {
-                timeGroups[timeKey].humidityValues.push(parseFloat(value.Humidity));
-            }
-            if (value.PPM && value.PPM !== "nan") {
-                timeGroups[timeKey].ppmValues.push(parseFloat(value.PPM));
+            // Only process data for the latest date
+            if (dateStr === latestDateFromData) {
+                const intervalMinute = Math.floor(minute / 15) * 15;
+                const timeKey = `${hour.toString().padStart(2, "0")}:${intervalMinute.toString().padStart(2, "0")}`;
+          
+                if (!timeGroups[timeKey]) {
+                    timeGroups[timeKey] = {
+                        temperatureValues: [],
+                        humidityValues: [],
+                        ppmValues: []
+                    };
+                }
+          
+                if (value.Temperature && value.Temperature !== "nan") {
+                    timeGroups[timeKey].temperatureValues.push(parseFloat(value.Temperature));
+                }
+                if (value.Humidity && value.Humidity !== "nan") {
+                    timeGroups[timeKey].humidityValues.push(parseFloat(value.Humidity));
+                }
+                if (value.PPM && value.PPM !== "nan") {
+                    timeGroups[timeKey].ppmValues.push(parseFloat(value.PPM));
+                }
             }
         });
+
+        setLatestDate(latestDateFromData);
       
         const averages = Object.entries(timeGroups)
             .map(([timeKey, values]) => ({
@@ -172,6 +180,18 @@ function ChartB() {
         }]
     };
 
+    const formatDisplayDate = (dateStr) => {
+        if (!dateStr) return "";
+        const [month, day, year] = dateStr.split("/");
+        const date = new Date(year, month - 1, day);
+        return date.toLocaleString("en-EN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            timeZone: "Asia/Jakarta"
+        });
+    };
+
     return (
         <div className="App">
             <Heading />
@@ -181,14 +201,7 @@ function ChartB() {
                 </Link>
             </div>
             <p className="TimeChart">
-                <b>
-                    {new Date().toLocaleString("en-EN", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                        timeZone: "Asia/Jakarta"
-                    })}
-                </b> 
+                <b>{latestDate ? formatDisplayDate(latestDate) : "Loading date..."}</b> 
             </p>
             {loading ? (
                 <div className="chart-text">Loading...</div>

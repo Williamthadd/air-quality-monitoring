@@ -12,10 +12,10 @@ function ChartC() {
     const [dataAverage, setDataAverage] = useState([]);
     const [loading, setLoading] = useState(true);
     const [hasData, setHasData] = useState(false);
+    const [latestDate, setLatestDate] = useState(null);
 
     const getAverageData = (data) => {
-        const today = new Date();
-        const todayStr = today.toLocaleDateString();
+        let latestDateFromData = null;
         const timeGroups = {};
         let hasValidData = false;
 
@@ -28,10 +28,13 @@ function ChartC() {
             }
 
             const [datePart, timePart] = value.Time.split(", ");
-            const [day, month, year] = datePart.split("/");
+            const [month, day, year] = datePart.split("/");
             const dateStr = `${month}/${day}/${year}`;
 
-            if (dateStr !== todayStr) return;
+            // Update latest date if needed
+            if (!latestDateFromData || new Date(dateStr) > new Date(latestDateFromData)) {
+                latestDateFromData = dateStr;
+            }
 
             let hour, minute;
             if (timePart.includes("AM") || timePart.includes("PM")) {
@@ -52,31 +55,35 @@ function ChartC() {
                 minute = parseInt(minuteStr);
             }
 
-            const intervalMinute = Math.floor(minute / 15) * 15;
-            const timeKey = `${hour.toString().padStart(2, "0")}:${intervalMinute.toString().padStart(2, "0")}`;
+            // Only process data for the latest date
+            if (dateStr === latestDateFromData) {
+                const intervalMinute = Math.floor(minute / 15) * 15;
+                const timeKey = `${hour.toString().padStart(2, "0")}:${intervalMinute.toString().padStart(2, "0")}`;
 
-            if (!timeGroups[timeKey]) {
-                timeGroups[timeKey] = {
-                    temperatureValues: [],
-                    humidityValues: [],
-                    ppmValues: []
-                };
-            }
+                if (!timeGroups[timeKey]) {
+                    timeGroups[timeKey] = {
+                        temperatureValues: [],
+                        humidityValues: [],
+                        ppmValues: []
+                    };
+                }
 
-            if (value.Temperature && value.Temperature !== "nan") {
-                timeGroups[timeKey].temperatureValues.push(parseFloat(value.Temperature));
-                hasValidData = true;
-            }
-            if (value.Humidity && value.Humidity !== "nan") {
-                timeGroups[timeKey].humidityValues.push(parseFloat(value.Humidity));
-                hasValidData = true;
-            }
-            if (value.PPM && value.PPM !== "nan") {
-                timeGroups[timeKey].ppmValues.push(parseFloat(value.PPM));
-                hasValidData = true;
+                if (value.Temperature && value.Temperature !== "nan") {
+                    timeGroups[timeKey].temperatureValues.push(parseFloat(value.Temperature));
+                    hasValidData = true;
+                }
+                if (value.Humidity && value.Humidity !== "nan") {
+                    timeGroups[timeKey].humidityValues.push(parseFloat(value.Humidity));
+                    hasValidData = true;
+                }
+                if (value.PPM && value.PPM !== "nan") {
+                    timeGroups[timeKey].ppmValues.push(parseFloat(value.PPM));
+                    hasValidData = true;
+                }
             }
         });
 
+        setLatestDate(latestDateFromData);
         setHasData(hasValidData);
 
         if (!hasValidData) {
@@ -178,6 +185,18 @@ function ChartC() {
         }]
     };
 
+    const formatDisplayDate = (dateStr) => {
+        if (!dateStr) return "";
+        const [month, day, year] = dateStr.split("/");
+        const date = new Date(year, month - 1, day);
+        return date.toLocaleString("en-EN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            timeZone: "Asia/Jakarta"
+        });
+    };
+
     return (
         <div className="App">
             <Heading />
@@ -187,14 +206,7 @@ function ChartC() {
                 </Link>
             </div>
             <p className="TimeChart">
-                <b>
-                    {new Date().toLocaleString('en-EN', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                        timeZone: 'Asia/Jakarta'
-                    })}
-                </b>
+                <b>{latestDate ? formatDisplayDate(latestDate) : "Loading date..."}</b>
             </p>
             {loading ? (
                 <div className="chart-text">Loading...</div>
@@ -212,7 +224,7 @@ function ChartC() {
                                     ...commonOptions.plugins,
                                     title: {
                                         display: true,
-                                        color: 'white',
+                                        color: "white",
                                         font: { size: 16 }
                                     }
                                 }
@@ -229,7 +241,7 @@ function ChartC() {
                                     ...commonOptions.plugins,
                                     title: {
                                         display: true,
-                                        color: 'white',
+                                        color: "white",
                                         font: { size: 16 }
                                     }
                                 }
@@ -246,7 +258,7 @@ function ChartC() {
                                     ...commonOptions.plugins,
                                     title: {
                                         display: true,
-                                        color: 'white',
+                                        color: "white",
                                         font: { size: 16 }
                                     }
                                 }

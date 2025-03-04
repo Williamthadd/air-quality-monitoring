@@ -235,8 +235,10 @@
 
 .Footer-Wrap{
   position: sticky;
+  position: -webkit-sticky; /* Added for Safari compatibility */
   background-color: #1C3031;
   top: 100%;
+
 }
 
 .Footer-Wrap h1{
@@ -567,6 +569,12 @@
   margin-right: 0px;
   font-weight: bold;
 }
+
+.tech-box:hover {
+  border-color: grey;
+  color: grey;
+}
+
 
 .carousel-container {
   max-width: 50%; 
