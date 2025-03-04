@@ -23,7 +23,7 @@ function About() {
       <p className="About-text">We are the founder of WiTiAx (William, Timothy, Axel). As our college thesis project in IoT topic, we created this website to help you monitor air quality in your class room.</p>
       <div class="container text-center">
         <div class="row justify-content-evenly">
-          <div class="col-md-4">
+          <div class="col-md-4 founder-card">
             <div class="card" style={{ width: "18rem" }}>
               <a href="https://www.linkedin.com/in/william-thaddeus-6151751a7/" target="_blank"><img src={William} class="card-img-top" alt="..."></img></a>
               <div class="card-body">
@@ -38,7 +38,7 @@ function About() {
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 founder-card">
           <div class="card" style={{ width: "18rem" }}>
               <a href="https://www.linkedin.com/in/timothy-micha-281033226/" target="_blank"><img src={Timothy} class="card-img-top" alt="..."></img></a>
               <div class="card-body">
@@ -53,7 +53,7 @@ function About() {
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 founder-card">
           <div class="card" style={{ width: "18rem" }}>
               <a href="https://www.linkedin.com/in/axelnbr/" target="_blank"><img src={Axel} class="card-img-top" alt="..."></img></a>
               <div class="card-body">
