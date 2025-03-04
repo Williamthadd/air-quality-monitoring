@@ -413,6 +413,10 @@
     font-size: 15px;
   }
 
+  .Footer-Wrap p{
+    font-size: 15px;
+  }
+
   .Time{
     margin-left: 20px;
   }
@@ -583,3 +587,12 @@
   margin-bottom: 20px;
 }
 
+.PageNotFound{
+  color: white;
+  margin-top: 150px;
+}
+
+.GoBack{
+  color: white;
+  
+}
