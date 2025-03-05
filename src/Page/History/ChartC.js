@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db, ref, onValue } from "../Firebase/FirebaseConfigReact.js";
-import Heading from "./component/Heading.js";
-import Footer from "./component/Footer.js";
+import { db, ref, onValue } from "../../Firebase/FirebaseConfigReact.js";
+import Heading from "../component/Heading.js";
+import Footer from "../component/Footer.js";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 
@@ -213,7 +213,7 @@ function ChartC() {
             ) : !hasData ? (
                 <div className="chart-text">No data yet...</div>
             ) : (
-                <>
+                <div>
                     <div className="Graph-wrap">
                         <h3 className="chart-text">Temperature</h3>
                         <Line 
@@ -223,9 +223,7 @@ function ChartC() {
                                 plugins: {
                                     ...commonOptions.plugins,
                                     title: {
-                                        display: true,
-                                        color: "white",
-                                        font: { size: 16 }
+                                        display: false
                                     }
                                 }
                             }} 
@@ -240,9 +238,7 @@ function ChartC() {
                                 plugins: {
                                     ...commonOptions.plugins,
                                     title: {
-                                        display: true,
-                                        color: "white",
-                                        font: { size: 16 }
+                                        display: false
                                     }
                                 }
                             }} 
@@ -257,15 +253,13 @@ function ChartC() {
                                 plugins: {
                                     ...commonOptions.plugins,
                                     title: {
-                                        display: true,
-                                        color: "white",
-                                        font: { size: 16 }
+                                        display: false
                                     }
                                 }
                             }} 
                         />
                     </div>
-                </>
+                </div>
             )}
             <Footer />
         </div>

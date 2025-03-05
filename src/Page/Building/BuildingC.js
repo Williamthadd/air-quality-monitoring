@@ -1,9 +1,9 @@
 //import library dan file dari tempat lain
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db, ref, onValue } from "../Firebase/FirebaseConfigReact";
-import Heading from "./component/Heading.js";
-import Footer from "./component/Footer.js";
+import { db, ref, onValue } from "../../Firebase/FirebaseConfigReact.js";
+import Heading from "../component/Heading.js";
+import Footer from "../component/Footer.js";
 
 function BuildingC() {
   //declare state
@@ -102,13 +102,13 @@ function BuildingC() {
   }
 
   function HumidityConverter({ dataHumidity }) {
-    if (dataHumidity > 70) {
+    if (dataHumidity >= 70) {
       return (
         <div className="Card4">
-          <h1>Dangerous</h1>
+          <h1>Moist</h1>
         </div>
       );
-    } else if (dataHumidity > 23) {
+    } else if (dataHumidity >= 30) {
       return (
         <div className="Card6">
           <h1>Safe</h1>
@@ -116,7 +116,7 @@ function BuildingC() {
       );
     } else {
       return (
-        <div className="Card5">
+        <div className="Card4">
           <h1>Dry</h1>
         </div>
       );
@@ -153,6 +153,13 @@ function BuildingC() {
                   <li className="libutton">
                     <button class="dropdown-item" type="button">
                       Building B
+                    </button>
+                  </li>
+                </Link>
+                <Link to="/Information">
+                  <li className="libutton">
+                    <button class="dropdown-item" type="button">
+                      Air Quality Informations
                     </button>
                   </li>
                 </Link>

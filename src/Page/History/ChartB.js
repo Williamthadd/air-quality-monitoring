@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db, ref, onValue } from "../Firebase/FirebaseConfigReact.js";
-import Heading from "./component/Heading.js";
-import Footer from "./component/Footer.js";
+import { db, ref, onValue } from "../../Firebase/FirebaseConfigReact.js";
+import Heading from "../component/Heading.js";
+import Footer from "../component/Footer.js";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-function ChartA() {
+function ChartB() {
     const [dataAverage, setDataAverage] = useState([]);
     const [loading, setLoading] = useState(true);
     const [hasData, setHasData] = useState(false);
@@ -105,7 +105,7 @@ function ChartA() {
 
     useEffect(() => {
         const fetchData = () => {
-            const dataRef = ref(db, "AirQualityMonitorA");
+            const dataRef = ref(db, "AirQualityMonitorB");
             const timeout = setTimeout(() => setLoading(true), 1000);
             
             onValue(dataRef, (snapshot) => {
@@ -196,7 +196,7 @@ function ChartA() {
         <div className="App">
             <Heading />
             <div className="Button">
-                <Link to="/">
+                <Link to="/BuildingB">
                     <button type="button" className="btn btn-outline-light">Back</button>
                 </Link>
             </div>
@@ -208,7 +208,7 @@ function ChartA() {
             ) : !hasData ? (
                 <div className="chart-text">No data yet...</div>
             ) : (
-                <>
+                <div>
                     <div className="Graph-wrap">
                         <h3 className="chart-text">Temperature</h3>
                         <Line 
@@ -218,9 +218,7 @@ function ChartA() {
                                 plugins: {
                                     ...commonOptions.plugins,
                                     title: {
-                                        display: true,
-                                        color: "white",
-                                        font: { size: 16 }
+                                        display: false
                                     }
                                 }
                             }} 
@@ -235,9 +233,7 @@ function ChartA() {
                                 plugins: {
                                     ...commonOptions.plugins,
                                     title: {
-                                        display: true,
-                                        color: "white",
-                                        font: { size: 16 }
+                                        display: false
                                     }
                                 }
                             }} 
@@ -252,19 +248,17 @@ function ChartA() {
                                 plugins: {
                                     ...commonOptions.plugins,
                                     title: {
-                                        display: true,
-                                        color: "white",
-                                        font: { size: 16 }
+                                        display: false
                                     }
                                 }
                             }} 
                         />
                     </div>
-                </>
+                </div>
             )}
             <Footer />
         </div>
     );
 }
 
-export default ChartA;
+export default ChartB;

@@ -1,5 +1,5 @@
-import Heading from "./component/Heading.js";
-import Footer from "./component/Footer.js";
+import Heading from "../component/Heading.js";
+import Footer from "../component/Footer.js";
 function PageNotFound() {
   return (
     <div class="App">

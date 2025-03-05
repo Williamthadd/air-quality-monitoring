@@ -1,12 +1,12 @@
 //import library dan file dari tempat lain
-import Heading from "./component/Heading.js";
-import Footer from "./component/Footer.js";
-import William from "./Asset/William.jpg";
-import Timothy from "./Asset/Timothy.jpg";
-import Axel from "./Asset/Axel.jpg";
-import Architecture from "./Asset/Architecture.png";
-import Network from "./Asset/Network.png";
-import Hardware from "./Asset/Hardware.png";
+import Heading from "../component/Heading.js";
+import Footer from "../component/Footer.js";
+import William from "../Asset/William.jpg";
+import Timothy from "../Asset/Timothy.jpg";
+import Axel from "../Asset/Axel.jpg";
+import Architecture from "../Asset/Architecture.png";
+import Network from "../Asset/Network.png";
+import Hardware from "../Asset/Hardware.png";
 import { Link } from "react-router-dom";
 
 function About() {
